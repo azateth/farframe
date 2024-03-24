@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frame 1 - Participation</title>
+    <script>
+        async function participate() {
+            // Extract user input, e.g., the 'X' in "X $degen"
+            const userInput = document.getElementById('userInput').value;
+
+            try {
+                // Send a request to the backend to check the conditions
+                const response = await fetch('your_backend_endpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userInput: userInput })
+                });
+
+                const result = await response.json();
+
+                // Assuming the backend returns a JSON with a 'success' field
+                if(result.success) {
+                    window.location.href = 'frame3.html'; // Proceed to Frame 3
+                } else {
+                    window.location.href = 'frame2.html'; // Redirect to Frame 2 if checks failed
+                }
+            } catch (error) {
+                console.error('There was an error processing the request:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <img src="img1.png" alt="Image for Frame 1">
+    <!-- Input for the user to enter "X $degen" -->
+    <input type="text" id="userInput" placeholder="Enter 'X $degen'">
+    <button onclick="participate()">Participate</button>
+</body>
+</html>
